@@ -326,13 +326,12 @@ if (typeof jQuery === 'undefined') {
 
   Carousel.VERSION  = '3.3.5'
 
-  Carousel.TRANSITION_DURATION = 600
-
   Carousel.DEFAULTS = {
     interval: 5000,
     pause: 'hover',
     wrap: true,
-    keyboard: true
+    keyboard: true,
+    duration: 600
   }
 
   Carousel.prototype.keydown = function (e) {
@@ -450,7 +449,7 @@ if (typeof jQuery === 'undefined') {
             that.$element.trigger(slidEvent)
           }, 0)
         })
-        .emulateTransitionEnd(Carousel.TRANSITION_DURATION)
+        .emulateTransitionEnd(this.options.duration)
     } else {
       $active.removeClass('active')
       $next.addClass('active')
@@ -563,10 +562,9 @@ if (typeof jQuery === 'undefined') {
 
   Collapse.VERSION  = '3.3.5'
 
-  Collapse.TRANSITION_DURATION = 350
-
   Collapse.DEFAULTS = {
-    toggle: true
+    toggle: true,
+    duration: 350
   }
 
   Collapse.prototype.dimension = function () {
@@ -622,7 +620,7 @@ if (typeof jQuery === 'undefined') {
 
     this.$element
       .one('bsTransitionEnd', $.proxy(complete, this))
-      .emulateTransitionEnd(Collapse.TRANSITION_DURATION)[dimension](this.$element[0][scrollSize])
+      .emulateTransitionEnd(this.options.duration)[dimension](this.$element[0][scrollSize])
   }
 
   Collapse.prototype.hide = function () {
@@ -660,7 +658,7 @@ if (typeof jQuery === 'undefined') {
     this.$element
       [dimension](0)
       .one('bsTransitionEnd', $.proxy(complete, this))
-      .emulateTransitionEnd(Collapse.TRANSITION_DURATION)
+      .emulateTransitionEnd(this.options.duration)
   }
 
   Collapse.prototype.toggle = function () {
@@ -951,7 +949,9 @@ if (typeof jQuery === 'undefined') {
   Modal.DEFAULTS = {
     backdrop: true,
     keyboard: true,
-    show: true
+    show: true,
+    transitionDuration: 200,
+    backdropTransitionDuration: 150
   }
 
   Modal.prototype.toggle = function (_relatedTarget) {
@@ -1011,7 +1011,7 @@ if (typeof jQuery === 'undefined') {
           .one('bsTransitionEnd', function () {
             that.$element.trigger('focus').trigger(e)
           })
-          .emulateTransitionEnd(Modal.TRANSITION_DURATION) :
+          .emulateTransitionEnd(this.options.transitionDuration) :
         that.$element.trigger('focus').trigger(e)
     })
   }
@@ -1042,7 +1042,7 @@ if (typeof jQuery === 'undefined') {
     $.support.transition && this.$element.hasClass('fade') ?
       this.$element
         .one('bsTransitionEnd', $.proxy(this.hideModal, this))
-        .emulateTransitionEnd(Modal.TRANSITION_DURATION) :
+        .emulateTransitionEnd(this.options.transitionDuration) :
       this.hideModal()
   }
 
@@ -1121,7 +1121,7 @@ if (typeof jQuery === 'undefined') {
       doAnimate ?
         this.$backdrop
           .one('bsTransitionEnd', callback)
-          .emulateTransitionEnd(Modal.BACKDROP_TRANSITION_DURATION) :
+          .emulateTransitionEnd(this.options.backdropTransitionDuration) :
         callback()
 
     } else if (!this.isShown && this.$backdrop) {
@@ -1134,7 +1134,7 @@ if (typeof jQuery === 'undefined') {
       $.support.transition && this.$element.hasClass('fade') ?
         this.$backdrop
           .one('bsTransitionEnd', callbackRemove)
-          .emulateTransitionEnd(Modal.BACKDROP_TRANSITION_DURATION) :
+          .emulateTransitionEnd(this.options.backdropTransitionDuration) :
         callbackRemove()
 
     } else if (callback) {

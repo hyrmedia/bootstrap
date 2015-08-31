@@ -32,13 +32,12 @@
 
   Carousel.VERSION  = '3.3.5'
 
-  Carousel.TRANSITION_DURATION = 600
-
   Carousel.DEFAULTS = {
     interval: 5000,
     pause: 'hover',
     wrap: true,
-    keyboard: true
+    keyboard: true,
+    transitionDuration: 600
   }
 
   Carousel.prototype.keydown = function (e) {
@@ -156,7 +155,7 @@
             that.$element.trigger(slidEvent)
           }, 0)
         })
-        .emulateTransitionEnd(Carousel.TRANSITION_DURATION)
+        .emulateTransitionEnd(this.options.transitionDuration)
     } else {
       $active.removeClass('active')
       $next.addClass('active')
